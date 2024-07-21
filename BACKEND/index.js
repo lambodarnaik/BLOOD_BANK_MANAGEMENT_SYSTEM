@@ -20,7 +20,7 @@ app.use(cookieParser());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "LAMBUys@94naik",
+  password: "password",
   database: "blood_bank",
 });
 
