@@ -846,7 +846,7 @@ app.post("/blood_bank_details", (req, res) => {
   let values = [req.body.district, req.body.blood_group];
   if (values[1] === "all") {
     sql =
-      "SELECT * FROM blood_banks bb JOIN blood_details bd ON bb.bbid=bd.bb_id AND bd.count>0";
+      "SELECT * FROM blood_banks bb JOIN blood_details bd ON bb.bbid = bd.bb_id WHERE bb.district = ? AND bd.count > 0;";
     values.splice(1, 1);
   }
   console.log(values);
@@ -1026,7 +1026,7 @@ app.post("/edit_blood_details", (req, res) => {
 app.post("/admin_login", (req, res) => {
   if (
     req.body.password === "1" &&
-    req.body.email === "lambodarnaik@gmail.com"
+    req.body.email === "admin@gmail.com"
   ) {
     return res.status(200).json({ Status: "Success" });
   } else if (req.body.email !== "lambodarnaik@gmail.com") {
@@ -1123,14 +1123,12 @@ app.get("/deleted_acc", (req, res) => {
           donorData.length > 0 ||
           patientData.length > 0
         ) {
-          res
-            .status(200)
-            .json({
-              Status: "Success",
-              bloodBankData: bloodBankData,
-              donorData: donorData,
-              patientData: patientData,
-            });
+          res.status(200).json({
+            Status: "Success",
+            bloodBankData: bloodBankData,
+            donorData: donorData,
+            patientData: patientData,
+          });
         } else {
           res.status(200).json({
             Status: "No data available",
